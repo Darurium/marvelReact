@@ -23,17 +23,11 @@ class MarvelService {
         return this._transformCharacter(res.data.results[0]);
     }
 
-    _isData(data) {
-        if (!data) {
-            return "Информация отсутствует"
-        }
-        return (data.slice(0, 200) + "...")
-    }
-
     _transformCharacter(char) {
         return {
-            name: this._isData(char.name),
-            description: this._isData(char.description),
+            id: char.id,
+            name: char.name,
+            description: char.description ? `${char.description.slice(0, 210)}...` : 'Описание отсутствует',
             thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
             homepage: char.urls[0].url,
             wiki: char.urls[1].url
