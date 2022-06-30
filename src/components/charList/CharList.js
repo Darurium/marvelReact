@@ -2,7 +2,6 @@ import { Component } from 'react';
 import MarvelService from '../../services/MarvelService';
 
 import './charList.scss';
-import abyss from '../../resources/img/abyss.jpg';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
 
@@ -36,7 +35,8 @@ class CharList extends Component {
 
     onError = () => {
         this.setState({
-            error: true
+            error: true,
+            loading: false
         })
     }
 
@@ -61,9 +61,12 @@ class CharList extends Component {
             }
             ///////
             return (
-                <li className="char__item" key={item.id}>
-                    <img src={item.thumbnail} alt={item.name} style={classImg}/>
-                    <div className="char__name">{item.name}</div>
+                <li
+                    className="char__item"
+                    key={item.id}
+                    onClick={() => this.props.onCharSelected(item.id)}>
+                        <img src={item.thumbnail} alt={item.name} style={classImg}/>
+                        <div className="char__name">{item.name}</div>
                 </li>
             )
         });
